@@ -1,0 +1,27 @@
+{
+    "name": "softon/indipay",
+    "description": "The Laravel 5 Package for Indian Payment Gateways",
+    "license": "MIT",
+    "keywords": [
+        "Laravel 5",
+        "Indian Payment Gateways",
+        "CCAvenue"
+    ],
+    "authors": [
+        {
+            "name": "Shiburaj",
+            "email": "powerupneo@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.0.*",
+        "guzzlehttp/guzzle": "5.0.*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Softon\\Indipay\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
