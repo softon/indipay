@@ -28,9 +28,11 @@ class IndipayServiceProvider extends ServiceProvider {
 
     public function boot(){
         $this->publishes([
-           // __DIR__.'/views/sms' => base_path('resources/views/sms'),
             __DIR__.'/config/config.php' => base_path('config/indipay.php'),
         ]);
+
+		$this->loadViewsFrom(__DIR__.'/views', 'indipay');
+
     }
 
 	/**

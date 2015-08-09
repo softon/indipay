@@ -12,12 +12,16 @@ return [
 
     'gateway' => 'CCAvenue',                // Replace with the name of appropriate gateway
 
+    'testMode'  => false,                   // True for Testing the Gateway
+
     'ccavenue' => [                         // CCAvenue Parameters
-        'merchant_id'  => env('INDIPAY_MERCHANT_ID', ''),
-        'access_code'  => env('INDIPAY_ACCESS_CODE', ''),
-        'working_key' => env('INDIPAY_WORKING_KEY', ''),
-        'redirect_url' => env('INDIPAY_REDIRECT_URL', ''),
-        'cancel_url' => env('INDIPAY_CANCEL URL', ''),
+        'merchantId'  => env('INDIPAY_MERCHANT_ID', ''),
+        'accessCode'  => env('INDIPAY_ACCESS_CODE', ''),
+        'workingKey' => env('INDIPAY_WORKING_KEY', ''),
+        'redirectUrl' => env('INDIPAY_REDIRECT_URL', ''),
+        'cancelUrl' => env('INDIPAY_CANCEL_URL', ''),
+        'currency' => env('INDIPAY_CURRENCY', 'INR'),
+        'language' => env('INDIPAY_LANGUAGE', 'EN'),
     ],
 
 
