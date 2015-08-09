@@ -6,7 +6,7 @@ return [
     |--------------------------------------------------------------------------
     | Indipay Service Config
     |--------------------------------------------------------------------------
-    |   gateway = Log / PayUMoney / CCAvenue
+    |   gateway = CCAvenue
     |   view    = File
     */
 
@@ -22,6 +22,10 @@ return [
         'cancelUrl' => env('INDIPAY_CANCEL_URL', ''),
         'currency' => env('INDIPAY_CURRENCY', 'INR'),
         'language' => env('INDIPAY_LANGUAGE', 'EN'),
+    ],
+
+    'remove_csrf_check' => [
+        'indipay/response'
     ],
 
 
