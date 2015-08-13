@@ -43,7 +43,7 @@ Initiate Purchase Request and Redirect:-
       
       $parameters = [
       
-        'transaction_id' => '1233221223322',
+        'tid' => '1233221223322',
         
         'order_id' => '1232212',
         
