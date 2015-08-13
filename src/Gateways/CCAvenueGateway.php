@@ -27,7 +27,7 @@ class CCAvenueGateway implements PaymentGatewayInterface {
         $this->parameters['currency'] = Config::get('indipay.ccavenue.currency');
         $this->parameters['redirect_url'] = Config::get('indipay.ccavenue.redirectUrl');
         $this->parameters['cancel_url'] = Config::get('indipay.ccavenue.cancelUrl');
-        $this->parameters['language'] = Config::get('indipay.ccavenue.currency');
+        $this->parameters['language'] = Config::get('indipay.ccavenue.language');
     }
 
     public function getEndPoint()
