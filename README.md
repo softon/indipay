@@ -53,7 +53,8 @@ Initiate Purchase Request and Redirect:-
       
       return Indipay::purchase($parameters);
 </code></pre>
-Get the Response from the Gateway (Add the Code to the Redirect Url Set in the config file.):-
+Get the Response from the Gateway (Add the Code to the Redirect Url Set in the config file. 
+Also add the response route to the remove_csrf_check config item to remove CSRF check on these routes.):-
 <pre><code> 
     public function response(Request $request)
     
