@@ -22,11 +22,11 @@ class CCAvenueGateway implements PaymentGatewayInterface {
     {
         $this->workingKey = Config::get('indipay.ccavenue.workingKey');
         $this->accessCode = Config::get('indipay.ccavenue.accessCode');
-
+        $this->testMode = Config::get('indipay.ccavenue.testMode');
         $this->parameters['merchant_id'] = Config::get('indipay.ccavenue.merchantId');
         $this->parameters['currency'] = Config::get('indipay.ccavenue.currency');
-        $this->parameters['redirect_url'] = Config::get('indipay.ccavenue.redirectUrl');
-        $this->parameters['cancel_url'] = Config::get('indipay.ccavenue.cancelUrl');
+        $this->parameters['redirect_url'] = url(Config::get('indipay.ccavenue.redirectUrl'));
+        $this->parameters['cancel_url'] = url(Config::get('indipay.ccavenue.cancelUrl'));
         $this->parameters['language'] = Config::get('indipay.ccavenue.language');
     }
 

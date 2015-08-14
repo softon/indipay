@@ -18,8 +18,11 @@ return [
         'merchantId'  => env('INDIPAY_MERCHANT_ID', ''),
         'accessCode'  => env('INDIPAY_ACCESS_CODE', ''),
         'workingKey' => env('INDIPAY_WORKING_KEY', ''),
-        'redirectUrl' => env('INDIPAY_REDIRECT_URL', ''),
-        'cancelUrl' => env('INDIPAY_CANCEL_URL', ''),
+
+        // Should be route address for url() function
+        'redirectUrl' => env('INDIPAY_REDIRECT_URL', 'indipay/response'),
+        'cancelUrl' => env('INDIPAY_CANCEL_URL', 'indipay/response'),
+
         'currency' => env('INDIPAY_CURRENCY', 'INR'),
         'language' => env('INDIPAY_LANGUAGE', 'EN'),
     ],
