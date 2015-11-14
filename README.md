@@ -1,5 +1,5 @@
 # IndiPay
-The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: CCAvenue
+The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: CCAvenue, PayUMoney
 
 <h2>Installation</h2>
 <b>Step 1:</b> Install package using composer
@@ -23,8 +23,8 @@ The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: 
 </pre></code>
 
 <b>Step 5:</b> Modify the app\Http\Kernel.php to use the new Middleware. 
-This is required so as to avoid CSRF verification of the Response from the payment gateways.
-You may adjust the routes in the config file config/indipay.php to disable CSRF on particular routes.
+This is required so as to avoid CSRF verification on the Response Url from the payment gateways.
+<b>You may adjust the routes in the config file config/indipay.php to disable CSRF on your gateways response routes.</b>
 <pre><code>
     'App\Http\Middleware\VerifyCsrfToken',
 </pre></code>

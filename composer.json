@@ -1,11 +1,12 @@
 {
     "name": "softon/indipay",
-    "description": "The Laravel 5 Package for Indian Payment Gateways",
+    "description": "The Laravel 5 Package for Indian Payment Gateways. Currently supported gateways: CCAvenue, PayUMoney",
     "license": "MIT",
     "keywords": [
         "Laravel 5",
         "Indian Payment Gateways",
-        "CCAvenue"
+        "CCAvenue",
+        "PayUMoney"
     ],
     "authors": [
         {
@@ -15,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "5.0.*"
+        "illuminate/support": "~5.0|~6.0"
     },
     "autoload": {
         "psr-4": {
