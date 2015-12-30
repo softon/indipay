@@ -6,37 +6,31 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Softon\Indipay\Exceptions\IndipayParametersMissingException;
 
-class EBSGateway implements PaymentGatewayInterface {
+class CitrusGateway implements PaymentGatewayInterface {
 
     protected $parameters = array();
     protected $testMode = false;
-    protected $merchantKey = '';
-    protected $salt = '';
     protected $hash = '';
-    protected $endPoint = 'https://secure.ebs.in/pg/ma/payment/request';
+    protected $vanityUrl = '';
+    protected $liveEndPoint = 'https://www.citruspay.com/';
+    protected $testEndPoint = 'https://sandbox.citruspay.com/';
     public $response = '';
 
     function __construct()
     {
-        $this->secretKey = Config::get('indipay.ebs.secretKey');
+        $this->vanityUrl = Config::get('indipay.citrus.vanityUrl');
+        $this->secretKey = Config::get('indipay.citrus.secretKey');
         $this->testMode = Config::get('indipay.testMode');
 
-        $this->parameters['channel'] = 0;       // Standard
-        $this->parameters['account_id'] = Config::get('indipay.ebs.account_id');
-        $this->parameters['reference_no'] = $this->generateTransactionID();
+        $this->parameters['merchantTxnId'] = $this->generateTransactionID();
         $this->parameters['currency'] = 'INR';
-        $this->parameters['mode'] = 'LIVE';
-        if($this->testMode){
-            $this->parameters['mode'] = 'TEST';
-        }
-        $this->parameters['return_url'] = url(Config::get('indipay.ebs.return_url'));
-
-
+        $this->parameters['returnUrl'] = url(Config::get('indipay.citrus.returnUrl'));
+        $this->parameters['notifyUrl'] = url(Config::get('indipay.citrus.notifyUrl'));
     }
 
     public function getEndPoint()
     {
-        return $this->endPoint;
+        return $this->testMode?$this->testEndPoint.$this->vanityUrl:$this->liveEndPoint.$this->vanityUrl;
     }
 
     public function request($parameters)
@@ -56,9 +50,8 @@ class EBSGateway implements PaymentGatewayInterface {
      */
     public function send()
     {
-
         Log::info('Indipay Payment Request Initiated: ');
-        return View::make('indipay::ebs')->with('hash',$this->hash)
+        return View::make('indipay::citrus')->with('hash',$this->hash)
                              ->with('parameters',$this->parameters)
                              ->with('endPoint',$this->getEndPoint());
 
@@ -74,6 +67,12 @@ class EBSGateway implements PaymentGatewayInterface {
     {
         $response = $request->all();
 
+        $response_hash = $this->decrypt($response);
+
+        if($response_hash!=$response['signature']){
+            return 'Hash Mismatch Error';
+        }
+
         return $response;
     }
 
@@ -85,21 +84,10 @@ class EBSGateway implements PaymentGatewayInterface {
     public function checkParameters($parameters)
     {
         $validator = Validator::make($parameters, [
-            'channel' => 'required',
-            'account_id' => 'required',
-            'reference_no' => 'required',
-            'mode' => 'required',
+            'merchantTxnId' => 'required',
             'currency' => 'required',
-            'description' => 'required',
-            'return_url' => 'required|url',
-            'name' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'country' => 'required',
-            'postal_code' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
-            'amount' => 'required|numeric',
+            'returnUrl' => 'required|url',
+            'orderAmount' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -109,27 +97,41 @@ class EBSGateway implements PaymentGatewayInterface {
     }
 
     /**
-     * EBS Encrypt Function
+     * Citrus Encrypt Function
      *
      */
     protected function encrypt()
     {
-        $this->hash = '';
-        $hash_string = "ebskey"."|".urlencode($this->parameters['account_id'])."|".urlencode($this->parameters['amount'])."|".urlencode($this->parameters['reference_no'])."|".$this->parameters['return_url']."|".urlencode($this->parameters['mode']);
-        $this->hash = md5($hash_string);
+
+        $hash_string = $this->vanityUrl.$this->parameters['orderAmount'].$this->parameters['merchantTxnId'].$this->parameters['currency'];
+
+        $this->hash = hash_hmac('sha1', $hash_string, $this->secretKey);
+
     }
 
     /**
-     * EBS Decrypt Function
+     * Citrus Decrypt Function
      *
-     * @param $plainText
-     * @param $key
+     * @param $response
      * @return string
      */
     protected function decrypt($response)
     {
+        $hash_string = '';
+        $hash_string .= $response['TxId'];
+        $hash_string .= $response['TxStatus'];
+        $hash_string .= $response['amount'];
+        $hash_string .= $response['pgTxnNo'];
+        $hash_string .= $response['issuerRefNo'];
+        $hash_string .= $response['authIdCode'];
+        $hash_string .= $response['firstName'];
+        $hash_string .= $response['lastName'];
+        $hash_string .= $response['pgRespCode'];
+        $hash_string .= $response['addressZip'];
 
-        return $response;
+
+        return hash_hmac('sha1', $hash_string, $this->secretKey);
+
     }
 
 

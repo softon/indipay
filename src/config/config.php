@@ -6,7 +6,7 @@ return [
     |--------------------------------------------------------------------------
     | Indipay Service Config
     |--------------------------------------------------------------------------
-    |   gateway = CCAvenue / PayUMoney / EBS
+    |   gateway = CCAvenue / PayUMoney / EBS / Citrus
     |   view    = File
     */
 
@@ -43,6 +43,15 @@ return [
 
         // Should be route address for url() function
         'return_url' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
+    ],
+
+    'citrus' => [                         // Citrus Parameters
+        'vanityUrl'  => env('INDIPAY_CITRUS_VANITY_URL', ''),
+        'secretKey' => env('INDIPAY_WORKING_KEY', ''),
+
+        // Should be route address for url() function
+        'returnUrl' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
+        'notifyUrl' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
     ],
 
     'remove_csrf_check' => [
