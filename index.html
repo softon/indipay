@@ -12,7 +12,7 @@
   <script type="text/javascript" src="javascripts/script.js"></script>
 
   <title>Indipay</title>
-  <meta name="description" content="The Laravel 5 Package for Indian Payment Gateways. Currently Supported Gateway: CCAvenue">
+  <meta name="description" content="The Laravel 5 Package for Indian Payment Gateways. Currently Supported Gateway: CCAvenue, PayUMoney, EBS, CitrusPay">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -25,7 +25,7 @@
       <h1 class="title">Indipay</h1>
     </header>
     <div id="container">
-      <p class="tagline">The Laravel 5 Package for Indian Payment Gateways. Currently Supported Gateway: CCAvenue</p>
+      <p class="tagline">The Laravel 5 Package for Indian Payment Gateways. Currently Supported Gateway: CCAvenue, PayUMoney, EBS, CitrusPay</p>
       <div id="main" role="main">
         <div class="download-bar">
         <div class="inner">
@@ -39,7 +39,7 @@
           <h1>
 <a id="indipay" class="anchor" href="#indipay" aria-hidden="true"><span class="octicon octicon-link"></span></a>IndiPay</h1>
 
-<p>The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: CCAvenue</p>
+<p>The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: <a href="http://www.ccavenue.com/">CCAvenue</a>, <a href="https://www.payumoney.com/">PayUMoney</a>, <a href="https://www.ebs.in">EBS</a>, <a href="http://www.citruspay.com/">CitrusPay</a></p>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -66,8 +66,8 @@
 </code></pre>
 
 <b>Step 5:</b> Modify the app\Http\Kernel.php to use the new Middleware. 
-This is required so as to avoid CSRF verification of the Response from the payment gateways.
-You may adjust the routes in the config file config/indipay.php to disable CSRF on particular routes.
+This is required so as to avoid CSRF verification on the Response Url from the payment gateways.
+<b>You may adjust the routes in the config file config/indipay.php to disable CSRF on your gateways response routes.</b>
 <pre><code>
     'App\Http\Middleware\VerifyCsrfToken',
 </code></pre>
@@ -89,7 +89,7 @@ Edit the config/indipay.php. Set the appropriate Gateway and its parameters. The
       
       $parameters = [
       
-        'transaction_id' =&gt; '1233221223322',
+        'tid' =&gt; '1233221223322',
         
         'order_id' =&gt; '1232212',
         
@@ -100,7 +100,8 @@ Edit the config/indipay.php. Set the appropriate Gateway and its parameters. The
       return Indipay::purchase($parameters);
 </code></pre>
 
-<p>Get the Response from the Gateway (Add the Code to the Redirect Url Set in the config file.):-</p>
+<p>Get the Response from the Gateway (Add the Code to the Redirect Url Set in the config file. 
+Also add the response route to the remove_csrf_check config item to remove CSRF check on these routes.):-</p>
 
 <pre><code> 
     public function response(Request $request)
