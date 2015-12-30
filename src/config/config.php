@@ -6,7 +6,7 @@ return [
     |--------------------------------------------------------------------------
     | Indipay Service Config
     |--------------------------------------------------------------------------
-    |   gateway = CCAvenue / PayUMoney
+    |   gateway = CCAvenue / PayUMoney / EBS
     |   view    = File
     */
 
@@ -35,6 +35,14 @@ return [
         // Should be route address for url() function
         'successUrl' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
         'failureUrl' => env('INDIPAY_FAILURE_URL', 'indipay/response'),
+    ],
+
+    'ebs' => [                         // EBS Parameters
+        'account_id'  => env('INDIPAY_MERCHANT_ID', ''),
+        'secretKey' => env('INDIPAY_WORKING_KEY', ''),
+
+        // Should be route address for url() function
+        'return_url' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
     ],
 
     'remove_csrf_check' => [
