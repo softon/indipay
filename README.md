@@ -1,6 +1,8 @@
 # IndiPay
 The Laravel 4.2 Package for Indian Payment Gateways. Currently supported gateway: <a href="http://www.ccavenue.com/">CCAvenue</a>, <a href="https://www.payumoney.com/">PayUMoney</a>, <a href="https://www.ebs.in">EBS</a>, <a href="http://www.citruspay.com/">CitrusPay</a>
 
+<a href="https://github.com/softon/indipay">For Laravel 5+ Click Here</a>
+
 <h2>Installation</h2>
 <b>Step 1:</b> Install package using composer
 <pre><code>
