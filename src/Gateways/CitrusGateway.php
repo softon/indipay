@@ -18,14 +18,14 @@ class CitrusGateway implements PaymentGatewayInterface {
 
     function __construct()
     {
-        $this->vanityUrl = Config::get('indipay.citrus.vanityUrl');
-        $this->secretKey = Config::get('indipay.citrus.secretKey');
-        $this->testMode = Config::get('indipay.testMode');
+        $this->vanityUrl = Config::get('indipay::citrus.vanityUrl');
+        $this->secretKey = Config::get('indipay::citrus.secretKey');
+        $this->testMode = Config::get('indipay::testMode');
 
         $this->parameters['merchantTxnId'] = $this->generateTransactionID();
         $this->parameters['currency'] = 'INR';
-        $this->parameters['returnUrl'] = url(Config::get('indipay.citrus.returnUrl'));
-        $this->parameters['notifyUrl'] = url(Config::get('indipay.citrus.notifyUrl'));
+        $this->parameters['returnUrl'] = url(Config::get('indipay::citrus.returnUrl'));
+        $this->parameters['notifyUrl'] = url(Config::get('indipay::citrus.notifyUrl'));
     }
 
     public function getEndPoint()

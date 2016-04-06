@@ -19,14 +19,14 @@ class PayUMoneyGateway implements PaymentGatewayInterface {
 
     function __construct()
     {
-        $this->merchantKey = Config::get('indipay.payumoney.merchantKey');
-        $this->salt = Config::get('indipay.payumoney.salt');
-        $this->testMode = Config::get('indipay.testMode');
+        $this->merchantKey = Config::get('indipay::payumoney.merchantKey');
+        $this->salt = Config::get('indipay::payumoney.salt');
+        $this->testMode = Config::get('indipay::testMode');
 
         $this->parameters['key'] = $this->merchantKey;
         $this->parameters['txnid'] = $this->generateTransactionID();
-        $this->parameters['surl'] = url(Config::get('indipay.payumoney.successUrl'));
-        $this->parameters['furl'] = url(Config::get('indipay.payumoney.failureUrl'));
+        $this->parameters['surl'] = url(Config::get('indipay::payumoney.successUrl'));
+        $this->parameters['furl'] = url(Config::get('indipay::payumoney.failureUrl'));
         $this->parameters['service_provider'] = 'payu_paisa';
     }
 

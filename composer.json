@@ -1,12 +1,14 @@
 {
     "name": "softon/indipay",
-    "description": "The Laravel 5 Package for Indian Payment Gateways. Currently supported gateways: CCAvenue, PayUMoney, EBS, CitrusPay",
+    "description": "The Laravel 4.2 Package for Indian Payment Gateways. Currently supported gateways: CCAvenue, PayUMoney, EBS, CitrusPay",
     "license": "MIT",
     "keywords": [
-        "Laravel 5",
+        "Laravel 4.2",
         "Indian Payment Gateways",
         "CCAvenue",
-        "PayUMoney"
+        "PayUMoney",
+		"EBS",
+		"CitrusPay"
     ],
     "authors": [
         {
@@ -15,8 +17,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "~5.0|~6.0"
+        "php": ">=5.3",
+        "illuminate/support": "~4"
     },
     "autoload": {
         "psr-4": {

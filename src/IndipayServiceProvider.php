@@ -19,7 +19,8 @@ class IndipayServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        $gateway = Config::get('indipay.gateway');
+		Config::package('softon/indipay', 'indipay');
+        $gateway = Config::get('indipay::gateway');
         $this->app->bind('indipay', '\Softon\Indipay\Indipay');
 
         $this->app->bind('\Softon\Indipay\Gateways\PaymentGatewayInterface','\Softon\Indipay\Gateways\\'.$gateway.'Gateway');
@@ -27,12 +28,8 @@ class IndipayServiceProvider extends ServiceProvider {
 
 
     public function boot(){
-        $this->publishes([
-            __DIR__.'/config/config.php' => base_path('config/indipay.php'),
-            __DIR__.'/views/middleware.blade.php' => base_path('app/Http/Middleware/VerifyCsrfMiddleware.php'),
-        ]);
 
-		$this->loadViewsFrom(__DIR__.'/views', 'indipay');
+		$this->package('softon/indipay','indipay');
 
     }
 
