@@ -6,11 +6,11 @@ return [
     |--------------------------------------------------------------------------
     | Indipay Service Config
     |--------------------------------------------------------------------------
-    |   gateway = CCAvenue / PayUMoney / EBS / Citrus
+    |   gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo
     |   view    = File
     */
 
-    'gateway' => 'CCAvenue',                // Replace with the name of appropriate gateway
+    'gateway' => 'InstaMojo',                // Replace with the name of appropriate gateway
 
     'testMode'  => true,                   // True for Testing the Gateway [For production false]
 
@@ -52,6 +52,12 @@ return [
         // Should be route address for url() function
         'returnUrl' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
         'notifyUrl' => env('INDIPAY_SUCCESS_URL', 'indipay/response'),
+    ],
+
+    'instamojo' =>  [
+        'api_key' => env('INSTAMOJO_API_KEY',''),
+        'auth_token' => env('INSTAMOJO_AUTH_TOKEN',''),
+        'redirectUrl' => env('INDIPAY_REDIRECT_URL', 'indipay/response'),
     ],
 
     'remove_csrf_check' => [
