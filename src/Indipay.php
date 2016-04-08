@@ -25,6 +25,16 @@ class Indipay {
         return $this->gateway->response($request);
     }
 
+    public function prepare($parameters = array())
+    {
+        return $this->gateway->request($parameters);
+    }
+
+    public function process($order)
+    {
+        return $order->send();
+    }
+
 
 
 }
