@@ -40,7 +40,7 @@ to
 Edit the config/indipay.php. Set the appropriate Gateway and its parameters. Then in your code... <br>
 <pre><code> use Softon\Indipay\Facades\Indipay;  </code></pre>
 Initiate Purchase Request and Redirect:-
-<pre><code> 
+```php 
       /* All Required Parameters by your Gateway */
       
       $parameters = [
@@ -53,8 +53,9 @@ Initiate Purchase Request and Redirect:-
         
       ];
       
-      return Indipay::purchase($parameters);
-</code></pre>
+      $order = Indipay::prepare($parameters);
+      return Indipay::process($order);
+```
 Get the Response from the Gateway (Add the Code to the Redirect Url Set in the config file. 
 Also add the response route to the remove_csrf_check config item to remove CSRF check on these routes.):-
 <pre><code> 
