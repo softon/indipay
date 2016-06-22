@@ -10,7 +10,7 @@ return [
     |   view    = File
     */
 
-    'gateway' => 'InstaMojo',                // Replace with the name of appropriate gateway
+    'gateway' => 'InstaMojo',                // Replace with the name of default gateway you want to use
 
     'testMode'  => true,                   // True for Testing the Gateway [For production false]
 
@@ -60,6 +60,7 @@ return [
         'redirectUrl' => env('INDIPAY_REDIRECT_URL', 'indipay/response'),
     ],
 
+    // Add your response link here. In Laravel 5.2 you may use the api middleware instead of this.
     'remove_csrf_check' => [
         'indipay/response'
     ],
