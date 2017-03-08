@@ -11,12 +11,12 @@ The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: 
 
 <b>Step 2:</b> Add the service provider to the config/app.php file in Laravel
 <pre><code>
-    'Softon\Indipay\IndipayServiceProvider',
+    Softon\Indipay\IndipayServiceProvider::class,
 </pre></code>
 
 <b>Step 3:</b> Add an alias for the Facade to the config/app.php file in Laravel
 <pre><code>
-    'Indipay' => 'Softon\Indipay\Facades\Indipay',
+    'Indipay' => Softon\Indipay\Facades\Indipay::class,
 </pre></code>
 
 <b>Step 4:</b> Publish the config & Middleware by running in your terminal
