@@ -16,7 +16,7 @@ class InstaMojoGateway implements PaymentGatewayInterface {
     protected $api_key = '';
     protected $auth_token = '';
     protected $liveEndPoint = 'https://www.instamojo.com/api/1.1/';
-    protected $testEndPoint = 'https://www.instamojo.com/api/1.1/';
+    protected $testEndPoint = 'https://test.instamojo.com/api/1.1/';
     public $response = '';
 
     function __construct()
