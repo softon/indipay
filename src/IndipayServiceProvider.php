@@ -20,9 +20,9 @@ class IndipayServiceProvider extends ServiceProvider {
 	public function register()
 	{
         $gateway = Config::get('indipay.gateway');
-        $this->app->bind('indipay', '\Softon\Indipay\Indipay');
+        $this->app->bind('indipay', 'Softon\Indipay\Indipay');
 
-        $this->app->bind('\Softon\Indipay\Gateways\PaymentGatewayInterface','\Softon\Indipay\Gateways\\'.$gateway.'Gateway');
+        $this->app->bind('Softon\Indipay\Gateways\PaymentGatewayInterface','Softon\Indipay\Gateways\\'.$gateway.'Gateway');
 	}
 
 
