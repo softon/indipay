@@ -34,7 +34,7 @@
                 "Softon\\Indipay\\IndipayServiceProvider"
             ],
             "aliases": {
-                "Indipay": "Softon\\Indipay\Facades\Indipay"
+                "Indipay": "Softon\\Indipay\\Facades\\Indipay"
             }
         }
     }
