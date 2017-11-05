@@ -27,5 +27,15 @@
             "Softon\\Indipay\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Softon\\Indipay\\IndipayServiceProvider"
+            ],
+            "aliases": {
+                "Indipay": "Softon\\Indipay\Facades\Indipay"
+            }
+        }
+    }
 }
