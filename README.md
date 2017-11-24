@@ -1,5 +1,5 @@
 # IndiPay
-The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: <a href="http://www.ccavenue.com/">CCAvenue</a>, <a href="https://www.payumoney.com/">PayUMoney</a>, <a href="https://www.ebs.in">EBS</a>, <a href="http://www.citruspay.com/">CitrusPay</a>
+The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: <a href="http://www.ccavenue.com/">CCAvenue</a>, <a href="https://www.payumoney.com/">PayUMoney</a>, <a href="https://www.ebs.in">EBS</a>, <a href="http://www.citruspay.com/">CitrusPay</a> , <a href="http://mocker.in">Mocker</a>
 
 <a href="https://github.com/softon/indipay/tree/laravel4">For Laravel 4.2 Package Click Here</a>
 
@@ -9,12 +9,12 @@ The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: 
     composer require softon/indipay
 </pre></code>
 
-<b>Step 2:</b> Add the service provider to the config/app.php file in Laravel
+<b>Step 2:</b> Add the service provider to the config/app.php file in Laravel (Optional for Laravel 5.5)
 <pre><code>
     Softon\Indipay\IndipayServiceProvider::class,
 </pre></code>
 
-<b>Step 3:</b> Add an alias for the Facade to the config/app.php file in Laravel
+<b>Step 3:</b> Add an alias for the Facade to the config/app.php file in Laravel (Optional for Laravel 5.5)
 <pre><code>
     'Indipay' => Softon\Indipay\Facades\Indipay::class,
 </pre></code>
@@ -28,11 +28,11 @@ The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: 
 This is required so as to avoid CSRF verification on the Response Url from the payment gateways.
 <b>You may adjust the routes in the config file config/indipay.php to disable CSRF on your gateways response routes.</b>
 <pre><code>
-    'App\Http\Middleware\VerifyCsrfToken',
+    App\Http\Middleware\VerifyCsrfToken::class,
 </pre></code>
 to
 <pre><code>
-    'App\Http\Middleware\VerifyCsrfMiddleware',
+    App\Http\Middleware\VerifyCsrfMiddleware::class,
 </pre></code>
 
 <h2>Usage</h2>
@@ -71,7 +71,7 @@ Initiate Purchase Request and Redirect using any of the configured gateway:-
         
       ];
       
-      // gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo
+      // gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo / Mocker
       
       $order = Indipay::gateway('NameOfGateway')->prepare($parameters);
       return Indipay::process($order);
