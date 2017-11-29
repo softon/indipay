@@ -11,8 +11,8 @@ class MockerGateway implements PaymentGatewayInterface {
     protected $parameters = array();
     protected $service = 'default';
     
-    protected $liveEndPoint = 'http://mocker.dev/payment/';
-    protected $testEndPoint = 'http://mocker.dev/payment/';
+    protected $liveEndPoint = 'http://mocker.in/payment/';
+    protected $testEndPoint = 'http://mocker.in/payment/';
     public $response = '';
 
     function __construct()
@@ -68,10 +68,22 @@ class MockerGateway implements PaymentGatewayInterface {
      */
     public function checkParameters($parameters)
     {
-        $validator = Validator::make($parameters, [
-            'redirect_url' => 'required|url',
-            'amount' => 'required|numeric',
-        ]);
+        if($this->service == 'default') {
+            $validator = Validator::make($parameters, [
+                'redirect_url' => 'required|url',
+                'amount' => 'required|numeric',
+            ]);
+            
+        }elseif($this->service == 'instamojo'){
+            $validator = Validator::make($parameters, [
+                'purpose' => 'required|max:30',
+                'amount' => 'required|numeric|between:9,200000',
+                'buyer_name' => 'max:100',
+                'email' => 'email|max:75',
+                'phone' => 'digits:10',
+                'redirect_url' => 'required|url',
+            ]);
+        }
 
         if ($validator->fails()) {
             throw new IndipayParametersMissingException;
