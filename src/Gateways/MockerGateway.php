@@ -76,11 +76,12 @@ class MockerGateway implements PaymentGatewayInterface {
             
         }elseif($this->service == 'instamojo'){
             $validator = Validator::make($parameters, [
-                'purpose' => 'required|max:30',
                 'amount' => 'required|numeric|between:9,200000',
-                'buyer_name' => 'max:100',
-                'email' => 'email|max:75',
-                'phone' => 'digits:10',
+                'redirect_url' => 'required|url',
+            ]);
+        }elseif($this->service == 'ccavenue'){
+            $validator = Validator::make($parameters, [
+                'amount' => 'required|numeric|between:9,200000',
                 'redirect_url' => 'required|url',
             ]);
         }
