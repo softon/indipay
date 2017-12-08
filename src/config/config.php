@@ -6,7 +6,7 @@ return [
     |--------------------------------------------------------------------------
     | Indipay Service Config
     |--------------------------------------------------------------------------
-    |   gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo / Mocker
+    |   gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo / ZapakPay / Mocker
     |   view    = File
     */
 
@@ -63,6 +63,12 @@ return [
     'mocker' =>  [
         'service' => env('MOCKER_SERVICE','default'),
         'redirect_url' => env('MOCKER_REDIRECT_URL', 'indipay/response'),
+    ],
+
+    'zapakpay' =>  [
+        'merchantIdentifier' => env('ZAPAKPAY_MERCHANT_ID',''),
+        'secret' => env('ZAPAKPAY_SECRET', ''),
+        'returnUrl' => env('ZAPAKPAY_RETURN_URL', 'indipay/response'),
     ],
 
     // Add your response link here. In Laravel 5.2 you may use the api middleware instead of this.
