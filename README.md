@@ -1,5 +1,5 @@
 # IndiPay
-The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: <a href="http://www.ccavenue.com/">CCAvenue</a>, <a href="https://www.payumoney.com/">PayUMoney</a>, <a href="https://www.ebs.in">EBS</a>, <a href="http://www.citruspay.com/">CitrusPay</a> , <a href="http://mocker.in">Mocker</a>
+The Laravel 5 Package for Indian Payment Gateways. Currently supported gateway: <a href="http://www.ccavenue.com/">CCAvenue</a>, <a href="https://www.payumoney.com/">PayUMoney</a>, <a href="https://www.ebs.in">EBS</a>, <a href="http://www.citruspay.com/">CitrusPay</a> ,<a href="https://pay.mobikwik.com/">ZapakPay</a> (Mobikwik), <a href="http://mocker.in">Mocker</a>
 
 <a href="https://github.com/softon/indipay/tree/laravel4">For Laravel 4.2 Package Click Here</a>
 
@@ -71,7 +71,7 @@ Initiate Purchase Request and Redirect using any of the configured gateway:-
         
       ];
       
-      // gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo / Mocker
+      // gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo / ZapakPay / Mocker
       
       $order = Indipay::gateway('NameOfGateway')->prepare($parameters);
       return Indipay::process($order);

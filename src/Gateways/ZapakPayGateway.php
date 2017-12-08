@@ -36,7 +36,7 @@ class ZapakPayGateway implements PaymentGatewayInterface {
     {
         $this->parameters = array_merge($this->parameters,$parameters);
 
-        //$this->checkParameters($this->parameters);
+        $this->checkParameters($this->parameters);
 
         $encodeString = $this->getAllParams($this->parameters);
         $this->checksum = $this->calculateChecksum($this->secret,$encodeString);
@@ -66,12 +66,19 @@ class ZapakPayGateway implements PaymentGatewayInterface {
      */
     public function response($request)
     {
-        $encResponse = $request->encResp;
+        $response = $request->all();
+        $rcvd_checksum = $request->checksum;
 
-        $rcvdString = $this->decrypt($encResponse,$this->workingKey);
-        parse_str($rcvdString, $decResponse);
+        $rcvd_data = $this->getAllResponseParams($response);
+        $checksum_check = $this->verifyChecksum($rcvd_checksum,$rcvd_data,$this->secret);
 
-        return $decResponse;
+        if(!$checksum_check){
+            return "Recieved Checksum Mismatch.";
+        }
+
+        $this->response = $response;
+
+        return $this->response;
     }
 
 
@@ -82,13 +89,10 @@ class ZapakPayGateway implements PaymentGatewayInterface {
     public function checkParameters($parameters)
     {
         $validator = Validator::make($parameters, [
-            'merchant_id' => 'required',
+            'merchantIdentifier' => 'required',
+            'buyerEmail' => 'required|email',
             'currency' => 'required',
-            'redirect_url' => 'required|url',
-            'cancel_url' => 'required|url',
-            'language' => 'required',
-            'tid' => 'required',
-            'order_id' => 'required',
+            'orderId' => 'required',
             'amount' => 'required|numeric',
         ]);
 
@@ -152,37 +156,10 @@ class ZapakPayGateway implements PaymentGatewayInterface {
     }
 
 
-    public function getAllParamsCheckandUpdate() {
-        //ksort($_POST);
-        $all = '';
-        foreach($_POST as $key => $value)   {
-            if($key != 'checksum') {
-                $all .= "'";
-                if ($key == 'returnUrl') {
-                    $all .= $this->sanitizedURL($value);
-                } else {
-                    $all .= $this->sanitizedParam($value);
-                }
-                $all .= "'";
-            }
-        }
-        
-        return $all;
-    }
-    public function outputForm($checksum) {
-        //ksort($_POST);
-        foreach($_POST as $key => $value) {
-            if ($key == 'returnUrl') {
-                echo '<input type="hidden" name="'.$key.'" value="'.Checksum::sanitizedURL($value).'" />'."\n";
-            } else {
-                echo '<input type="hidden" name="'.$key.'" value="'.Checksum::sanitizedParam($value).'" />'."\n";
-            }
-        }
-        echo '<input type="hidden" name="checksum" value="'.$checksum.'" />'."\n";
-    }
+
     
     public function verifyChecksum($checksum, $all, $secret) {
-        $cal_checksum = Checksum::calculateChecksum($secret, $all);
+        $cal_checksum = $this->calculateChecksum($secret, $all);
         $bool = 0;
         if($checksum == $cal_checksum)  {
             $bool = 1;
@@ -249,51 +226,25 @@ class ZapakPayGateway implements PaymentGatewayInterface {
         return $sanitizedParam;
     }
     
-    public function outputResponse($bool) {
-        foreach($_POST as $key => $value) {
-            if ($bool == 0) {
-                if ($key == "responseCode") {
-                    echo '<tr><td width="50%" align="center" valign="middle">'.$key.'</td>
-                        <td width="50%" align="center" valign="middle"><font color=Red>***</font></td></tr>';
-                } else if ($key == "responseDescription") {
-                    echo '<tr><td width="50%" align="center" valign="middle">'.$key.'</td>
-                        <td width="50%" align="center" valign="middle"><font color=Red>This response is compromised.</font></td></tr>';
-                } else {
-                    echo '<tr><td width="50%" align="center" valign="middle">'.$key.'</td>
-                        <td width="50%" align="center" valign="middle">'.$value.'</td></tr>';
-                }
-            } else {
-                echo '<tr><td width="50%" align="center" valign="middle">'.$key.'</td>
-                    <td width="50%" align="center" valign="middle">'.$value.'</td></tr>';
-            }
-        }
-        echo '<tr><td width="50%" align="center" valign="middle">Checksum Verified?</td>';
-        if($bool == 1) {
-            echo '<td width="50%" align="center" valign="middle">Yes</td></tr>';
-        }
-        else {
-            echo '<td width="50%" align="center" valign="middle"><font color=Red>No</font></td></tr>';
-        }
-    }
-    public function getAllResponseParams() {
-        //ksort($_POST);
+
+    public function getAllResponseParams($response) {
+
         $all = '';
         $checksumsequence= array("amount","bank","bankid",
-                "cardId","cardScheme","cardToken","cardhashid","doRedirect","orderId","paymentMethod","paymentMode","responseCode",
+                "cardId","cardScheme","cardToken","cardhashid","doRedirect",
+                "orderId","paymentMethod","paymentMode","responseCode",
                 "responseDescription");
         foreach($checksumsequence as $seqvalue) {
-            if(array_key_exists($seqvalue, $_POST)) {
+            if(array_key_exists($seqvalue, $response)) {
                 
                 $all .= $seqvalue;
                 $all .="=";
                 if ($seqvalue == 'returnUrl') {
-                    $all .= $_POST[$seqvalue];
+                    $all .= $response[$seqvalue];
                 } else {
-                    $all .= $_POST[$seqvalue];
+                    $all .= $response[$seqvalue];
                 }
                 $all .= "&";
-                
-                
                 
             }
         }
