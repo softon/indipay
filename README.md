@@ -56,6 +56,7 @@ Initiate Purchase Request and Redirect using the default gateway:-
       $order = Indipay::prepare($parameters);
       return Indipay::process($order);
 ```
+**tid is not required for CCAvenue, if you put it will give 201 error **
 
 Initiate Purchase Request and Redirect using any of the configured gateway:-
 ```php 
