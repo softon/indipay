@@ -8,7 +8,7 @@ class VerifyCsrfMiddleware extends \Illuminate\Foundation\Http\Middleware\Verify
 
     public function handle($request, Closure $next)
     {
-        if ($this->isReading($request) || $this->excludedRoutes($request) || $this->tokensMatch($request))
+        if ($this->isReading($request) || $this->excludedRoutes($request) || $this->tokensMatch($request) || $this->runningUnitTests())
         {
             return $this->addCookieToResponse($request, $next($request));
         }
