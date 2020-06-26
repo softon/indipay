@@ -6,8 +6,7 @@ return [
     |--------------------------------------------------------------------------
     | Indipay Service Config
     |--------------------------------------------------------------------------
-    |   gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo / ZapakPay / Mocker
-    |   view    = File
+    |   gateway = CCAvenue / PayUMoney / EBS / Citrus / InstaMojo / ZapakPay / Paytm / Mocker
     */
 
     'gateway' => 'Mocker',                // Replace with the name of default gateway you want to use
@@ -71,7 +70,16 @@ return [
         'returnUrl' => env('ZAPAKPAY_RETURN_URL', 'indipay/response'),
     ],
 
-    // Add your response link here. In Laravel 5.2 you may use the api middleware instead of this.
+    'paytm' =>  [
+        'MERCHANT_KEY' => env('PAYTM_MERCHANT_KEY',''),
+        'MID' => env('PAYTM_MID', ''),
+        'CHANNEL_ID' => env('PAYTM_CHANNEL_ID', 'WEB'),
+        'WEBSITE' => env('PAYTM_WEBSITE', 'WEBSTAGING'),
+        'INDUSTRY_TYPE_ID' => env('PAYTM_INDUSTRY_TYPE_ID', 'Retail'),
+        'REDIRECT_URL' => env('PAYTM_REDIRECT_URL', 'indipay/response'),
+    ],
+
+    // Add your response link here. In Laravel 5.2+ you may use the VerifyCsrf Middleware.
     'remove_csrf_check' => [
         'indipay/response'
     ],

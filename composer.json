@@ -1,6 +1,6 @@
 {
     "name": "softon/indipay",
-    "description": "The Laravel 5 Package for Indian Payment Gateways. Currently supported gateways: CCAvenue, PayUMoney, EBS, CitrusPay, InstaMojo, ZapakPay, Mocker",
+    "description": "The Laravel 5+ Package for Indian Payment Gateways. Currently supported gateways: CCAvenue, PayUMoney, EBS, CitrusPay, InstaMojo, ZapakPay, Paytm, Mocker.",
     "license": "MIT",
     "keywords": [
         "Laravel 5",
@@ -11,6 +11,7 @@
         "CitrusPay",
         "InstaMojo",
         "Mobikwik / ZapakPay",
+        "Paytm",
         "Mocker"
     ],
     "authors": [

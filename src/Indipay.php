@@ -38,6 +38,11 @@ class Indipay {
         return $this->gateway->request($parameters);
     }
 
+    public function verify($parameters = array())
+    {
+        return $this->gateway->verify($parameters);
+    }
+
     public function process($order)
     {
         return $order->send();

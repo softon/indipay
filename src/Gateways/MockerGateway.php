@@ -13,6 +13,7 @@ class MockerGateway implements PaymentGatewayInterface {
     
     protected $liveEndPoint = 'https://mocker.in/payment/';
     protected $testEndPoint = 'https://mocker.in/payment/';
+    protected $statusEndPoint = 'https://mocker.in/payment/status';
     public $response = '';
 
     function __construct()
@@ -57,8 +58,39 @@ class MockerGateway implements PaymentGatewayInterface {
      */
     public function response($request)
     {
-        
-        return $request->all();
+        $params = $request->all();
+        if($params['transaction_status'] == 'success'){
+            $params['status'] = 'success';
+            return $params;
+        }
+        $params['status'] = 'failure';
+        return $params;
+    }
+
+    /**
+     * Check Response
+     * @param $request
+     * @return array
+     */
+    public function verify($parameters)
+    {
+        if(!isset($parameters['transaction_no']) || !isset($parameters['amount'])){
+            throw new IndipayParametersMissingException;
+        } 
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $this->statusEndPoint, [
+            'query' => [
+                'transaction_no' => $parameters['transaction_no'],
+                'redirect_url' => $this->parameters['redirect_url']
+            ]
+        ]);
+        $mocker_data = json_decode($res->getBody());
+        if($mocker_data->amount == $parameters['amount']){
+            $mocker_data['status'] = 'success';
+            return $mocker_data;
+        }
+        $mocker_data['status'] = 'failure';
+        return $mocker_data;
     }
 
 
@@ -70,6 +102,7 @@ class MockerGateway implements PaymentGatewayInterface {
     {
         if($this->service == 'default') {
             $validator = Validator::make($parameters, [
+                'transaction_no' => 'required',
                 'redirect_url' => 'required|url',
                 'amount' => 'required|numeric',
             ]);
