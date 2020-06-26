@@ -15,20 +15,20 @@
         <input type=hidden name="name" value="{{ $parameters['name'] }}">
         <input type=hidden name="address" value="{{ $parameters['address'] }}">
         <input type=hidden name="city" value="{{ $parameters['city'] }}">
-        <input type=hidden name="state" value="{{ $parameters['state'] or ''}}">
+        <input type=hidden name="state" value="{{ isset($parameters['state']) ? $parameters['state'] : ''}}">
         <input type=hidden name="country" value="{{ $parameters['country'] }}">
         <input type=hidden name="postal_code" value="{{ $parameters['postal_code'] }}">
         <input type=hidden name="phone" value="{{ $parameters['phone'] }}">
         <input type=hidden name="email" value="{{ $parameters['email'] }}">
 
-        <input type=hidden name="ship_name" value="{{ $parameters['ship_name'] or '' }}">
-        <input type=hidden name="ship_address" value="{{ $parameters['ship_address'] or '' }}">
-        <input type=hidden name="ship_city" value="{{ $parameters['ship_city'] or '' }}">
-        <input type=hidden name="ship_state" value="{{ $parameters['ship_state'] or '' }}">
-        <input type=hidden name="ship_country" value="{{ $parameters['ship_country'] or '' }}">
-        <input type=hidden name="ship_postal_code" value="{{ $parameters['ship_postal_code']  or ''}}">
-        <input type=hidden name="ship_phone" value="{{ $parameters['ship_phone'] or '' }}">
-        <input type=hidden name="page_id" value="{{ $parameters['page_id'] or '' }}">
+        <input type=hidden name="ship_name" value="{{ isset($parameters['ship_name']) ? $parameters['ship_name'] : '' }}">
+        <input type=hidden name="ship_address" value="{{ isset($parameters['ship_address']) ? $parameters['ship_address'] : '' }}">
+        <input type=hidden name="ship_city" value="{{ isset($parameters['ship_city']) ? $parameters['ship_city'] : '' }}">
+        <input type=hidden name="ship_state" value="{{ isset($parameters['ship_state']) ? $parameters['ship_state'] : '' }}">
+        <input type=hidden name="ship_country" value="{{ isset($parameters['ship_country']) ? $parameters['ship_country'] : '' }}">
+        <input type=hidden name="ship_postal_code" value="{{ isset($parameters['ship_postal_code'])  ? $parameters['ship_postal_code'] : ''}}">
+        <input type=hidden name="ship_phone" value="{{ isset($parameters['ship_phone']) ? $parameters['ship_phone'] : '' }}">
+        <input type=hidden name="page_id" value="{{ isset($parameters['page_id']) ? $parameters['page_id'] : '' }}">
         <input type=hidden name="secure_hash" value="{{ $hash }}">
 
     </form>
