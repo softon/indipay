@@ -56,30 +56,39 @@ class Indipay {
             case 'ccavenue':
                 $this->gateway = new CCAvenueGateway();
                 break;
-
-            case 'payumoney':
-                $this->gateway = new PayUMoneyGateway();
+                
+            case 'citrus':
+                $this->gateway = new CitrusGateway();
                 break;
 
             case 'ebs':
                 $this->gateway = new EBSGateway();
                 break;
 
-            case 'citrus':
-                $this->gateway = new CitrusGateway();
+            case 'instamojo':
+                $this->gateway = new InstaMojoGateway();
                 break;
 
             case 'instamojo':
                 $this->gateway = new InstaMojoGateway();
                 break;
-
+            
             case 'mocker':
                 $this->gateway = new MockerGateway();
+                break;
+
+            case 'paytm':
+                $this->gateway = new PaytmGateway();
+                break;
+
+            case 'payumoney':
+                $this->gateway = new PayUMoneyGateway();
                 break;
 
             case 'zapakpay':
                 $this->gateway = new ZapakPayGateway();
                 break;
+
 
         }
 

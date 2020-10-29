@@ -27,7 +27,6 @@ class PayUMoneyGateway implements PaymentGatewayInterface {
         $this->parameters['txnid'] = $this->generateTransactionID();
         $this->parameters['surl'] = url(Config::get('indipay.payumoney.successUrl'));
         $this->parameters['furl'] = url(Config::get('indipay.payumoney.failureUrl'));
-        $this->parameters['service_provider'] = 'payu_paisa';
     }
 
     public function getEndPoint()
@@ -95,7 +94,6 @@ class PayUMoneyGateway implements PaymentGatewayInterface {
             'email' => 'required',
             'phone' => 'required',
             'productinfo' => 'required',
-            'service_provider' => 'required',
             'amount' => 'required|numeric',
         ]);
 

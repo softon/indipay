@@ -43,10 +43,12 @@ class PaytmGateway implements PaymentGatewayInterface {
     public function request($parameters)
     {
         $this->parameters = array_merge($this->parameters,$parameters);
-
-        $this->checkParameters($this->parameters);
-
+        
         $this->checksum = $this->getChecksumFromArray($this->parameters,$this->MERCHANT_KEY);
+        
+        $this->parameters['CHECKSUMHASH'] = $this->checksum;
+        
+        $this->checkParameters($this->parameters);
 
         return $this;
 
@@ -118,6 +120,7 @@ class PaytmGateway implements PaymentGatewayInterface {
             'INDUSTRY_TYPE_ID' => 'required',
             'CALLBACK_URL' => 'required|url',
             'TXN_AMOUNT' => 'required|numeric',
+            'CHECKSUMHASH' => 'required',
         ]);
 
         if ($validator->fails()) {
