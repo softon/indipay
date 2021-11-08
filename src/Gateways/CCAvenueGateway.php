@@ -98,7 +98,7 @@ class CCAvenueGateway implements PaymentGatewayInterface {
         ]);
 
         if ($validator->fails()) {
-            throw new IndipayParametersMissingException;
+            throw new IndipayParametersMissingException($validator->errors());
         }
 
     }

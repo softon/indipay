@@ -14,7 +14,7 @@ class PayUMoneyGateway implements PaymentGatewayInterface {
     protected $salt = '';
     protected $hash = '';
     protected $liveEndPoint = 'https://secure.payu.in/_payment';
-    protected $testEndPoint = 'https://sandboxsecure.payu.in/_payment';
+    protected $testEndPoint = 'https://test.payu.in/_payment';
     public $response = '';
 
     function __construct()
@@ -27,7 +27,6 @@ class PayUMoneyGateway implements PaymentGatewayInterface {
         $this->parameters['txnid'] = $this->generateTransactionID();
         $this->parameters['surl'] = url(Config::get('indipay.payumoney.successUrl'));
         $this->parameters['furl'] = url(Config::get('indipay.payumoney.failureUrl'));
-        $this->parameters['service_provider'] = 'payu_paisa';
     }
 
     public function getEndPoint()
@@ -95,12 +94,11 @@ class PayUMoneyGateway implements PaymentGatewayInterface {
             'email' => 'required',
             'phone' => 'required',
             'productinfo' => 'required',
-            'service_provider' => 'required',
             'amount' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
-            throw new IndipayParametersMissingException;
+            throw new IndipayParametersMissingException($validator->errors());
         }
 
     }
