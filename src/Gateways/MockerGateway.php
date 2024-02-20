@@ -59,7 +59,7 @@ class MockerGateway implements PaymentGatewayInterface {
     public function response($request)
     {
         $params = $request->all();
-        if($params['transaction_status'] == 'success'){
+        if(isset($params['transaction_status']) && $params['transaction_status'] == 'success'){
             $params['status'] = 'success';
             return $params;
         }
